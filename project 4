@@ -1,0 +1,112 @@
+// 
+// Author: Sofia Gratny
+// Purpose: Creating a calculator program for dates. Our program should allow users to add to or subtract from a d/te.
+// Date: 2/27/2022
+//
+
+#include <stdio.h>
+
+// Functionality 
+int getmenuchoice(int addsub);
+void getdate(int* monthptr, int* dayptr);
+void subtractdays(int day, int month, int sub, int* differentmonth, int* differentday);
+void adddays(int day, int month, int add, int* summonth, int* sumday);
+
+// Main
+int main() {
+
+// Declaration of Variables
+
+int day, month, addsub;
+
+printf("**DATE CALCULATOR**\n");
+
+addsub = getmenuchoice(addsub);\
+getdate(&day, &month);
+
+// + and -
+switch(addsub){
+
+case(1):
+	{
+int sub, differentmonth, differentday;
+subtractdays(day, month, sub, &differentmonth, &differentday);
+printf("new date: %d/%d\n", differentday, differentmonth);
+
+break;
+       ;}
+case(2):
+	{
+int summonth, add, sumday;
+adddays(day, month, add, &summonth, &sumday);
+printf("new date: %d/%d\n", sumday, summonth);
+
+break;
+	;}
+}
+
+// Main end
+return 0;
+}
+
+// + and - Functions
+
+int getmenuchoice(int addsub) {
+
+printf("1 - subtraction\n2 - addition\n");
+scanf("%d", &addsub);
+
+	return addsub;
+}
+
+// Date
+void getdate(int* monthptr, int*dayptr){
+printf("Enter a date ##/##: ");
+scanf("%d/%d", monthptr, dayptr);
+
+}
+
+
+// Addition
+void adddays(int day, int month, int add, int* summonth, int* sumday){
+printf("Enter number of days between 1 and 30: ");
+scanf("%d", &add);
+printf("adding\n");
+if (add + day <= 30) {
+	*summonth = month;
+	*sumday = add + day;
+}
+else {
+if (month == 12){
+	*summonth = 1;
+	*sumday = (day - 30) + add;
+}
+
+else {
+	*summonth = month + 1;
+	*sumday = (day - 30) + add;
+    }
+  }
+}
+	
+// Subtraction
+void subtractdays(int day, int month, int sub, int* differentmonth, int* differentday){
+printf("Enter number of days between 1 and 30: ");
+scanf("%d", &sub);
+printf("subtraction\n");
+if (day - sub >= 30) {
+	*differentmonth = month;
+	*differentday = day - sub;
+}
+else {
+if (month == 1){
+	*differentmonth = 12;
+	*differentday = (day + 30) - sub;
+}
+
+else {
+	*differentmonth = month - 1;
+	*differentday = (day + 30) - sub;
+    }
+  }
+}
